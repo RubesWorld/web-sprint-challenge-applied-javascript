@@ -6,7 +6,21 @@
 // This won't be as easy as just iterating over an array though.
 //
 
-
+axios
+    .get('https://lambda-times-api.herokuapp.com/articles')
+    .then(res => {
+        for(let key in res){
+            let value = res[key];
+            console.log(value)
+            for(let i=0;i<=value.length;i++){
+                let cards = cardMaker(value[i])
+                document.querySelector('.cards-container').appendChild(cards)
+            }
+        }
+    })
+    .catch(err=>{
+        console.log(err)
+    })
 // Write a function that takes a single article object and returns the following markup:
 //
 // <div class="card">
@@ -23,7 +37,7 @@
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 
-function createCard(data){
+function cardMaker(data){
     //create elements 
     let card = document.createElement('div');
     let headline = document.createElement('div');
@@ -46,9 +60,14 @@ function createCard(data){
     imgContainer.classList.add('img-container');
 
     //add content 
-    headline.textContent = data[i]['headline'];
-    img.src = data[i]['authorPhoto']
-    authorName.textContent = data[i]['authorName']
+    headline.textContent = data['headline'];
+    img.src = data['authorPhoto']
+    authorName.textContent = `By: ${data["authorName"]}`
+
+    //eventListener
+    card.addEventListener('click',event=>{
+    event.target(console.log(target))
+    })
 
     //return
     return card;

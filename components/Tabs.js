@@ -14,7 +14,6 @@ axios
     .get('https://lambda-times-api.herokuapp.com/topics')
     .then(res =>{
         const tabs = res.data.topics;
-        console.log(tabs)
         tabs.forEach(e => {
             let topic = tabMaker({topics:e});
             document.querySelector('.topics').appendChild(topic)
