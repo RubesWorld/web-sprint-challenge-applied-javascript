@@ -32,5 +32,9 @@ function tabMaker({topics}){
     //add content
     tab.textContent = topics;
 
+    tab.addEventListener('click',event =>{
+        tab.classList.toggle('active-tab');
+    })
+
     return tab;
 }
