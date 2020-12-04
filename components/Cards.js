@@ -9,18 +9,17 @@
 axios
     .get('https://lambda-times-api.herokuapp.com/articles')
     .then(res => {
-        for(let key in res){
-            let value = res[key];
-            console.log(value)
-            for(let i=0;i<=value.length;i++){
-                let cards = cardMaker(value[i])
-                document.querySelector('.cards-container').appendChild(cards)
-            }
-        }
+        const taskData = Object.values(res.data.articles)
+        taskData.map(arr =>{
+            arr.forEach(i =>{
+                document.querySelector('.cards-container').appendChild(cardMaker(i));
+            })
+        })
     })
     .catch(err=>{
         console.log(err)
     })
+
 // Write a function that takes a single article object and returns the following markup:
 //
 // <div class="card">
@@ -60,13 +59,13 @@ function cardMaker(data){
     imgContainer.classList.add('img-container');
 
     //add content 
-    headline.textContent = data['headline'];
-    img.src = data['authorPhoto']
-    authorName.textContent = `By: ${data["authorName"]}`
+    headline.textContent = data.headline;
+    img.src = data.authorPhoto
+    authorName.textContent = `By: ${data.authorName}`
 
     //eventListener
     card.addEventListener('click',event=>{
-    event.target(console.log(target))
+    console.log(data.headline,event)
     })
 
     //return
